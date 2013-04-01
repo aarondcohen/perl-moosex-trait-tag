@@ -24,6 +24,36 @@ Metadata merely acts as an identifying label.  However, by marking any
 attribute as Metadata, various methods are installed into the pacakage
 declaring the attribute.
 
+Example usage:
+
+	package Foo;
+	use Moose;
+	use MooseX:Trait::Metadata;
+
+	has field1 => (is => 'rw', traits => [qw{Metadata}]);
+	has field2 => (is => 'ro', traits => [qw{Metadata}]);
+	has field3 => (is => 'rw', traits => []);
+
+	__PACKAGE__->meta->make_immutable;
+
+	package main;
+
+	my $foo = Foo->new;
+
+	my @metadata_fields = sort $foo->metadata_attributes;
+	# @metadata_fields == qw{ field1 field2 }
+
+	print "Yes\n" if $foo->is_metadata_attribute('field1');
+	print "No\n" if !$foo->is_metadata_attribute('field3');
+
+	$foo->update_metadata(
+		field1 => 6,
+		field2 => 7,
+		field3 => 8,
+		field4 => 9,
+	);
+	# => only field1 is modified
+
 =cut
 
 =head1 METHODS
