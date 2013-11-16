@@ -1,1 +1,1 @@
-lib/MooseX/Trait/Metadata.pm
+lib/MooseX/Trait/Label.pm
