@@ -1,1 +1,1 @@
-lib/MooseX/Trait/Label.pm
+lib/MooseX/Trait/Tag.pm
