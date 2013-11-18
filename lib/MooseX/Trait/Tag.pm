@@ -40,19 +40,22 @@ Example usage:
 
 	my $foo = Foo->new;
 
-	my @metadata_fields = sort $foo->metadata_attributes;
+	my @metadata_fields = sort $foo->all_metadata;
 	# @metadata_fields => qw{ field1 field2 }
 
-	print "Yes\n" if $foo->is_attribute_metadata('field1');
-	print "No\n" if !$foo->is_attribute_metadata('field3');
+	print "Yes\n" if $foo->is_metadata('field1');
+	print "No\n" if !$foo->is_metadata('field3');
 
-	$foo->update_metadata(
+	$foo->set_metadata(
 		field1 => 6,
 		field2 => 7,
 		field3 => 8,
 		field4 => 9,
 	);
 	# => only field1 is modified
+
+	my %field_to_value = $foo->get_metadata;
+	# %field_to_value => (field1 => 6, field2 => undef)
 
 =cut
 
