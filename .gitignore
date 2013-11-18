@@ -4,8 +4,10 @@
 .last_cover_stats
 Build
 Build.bat
+MANIFEST
 MANIFEST.bak
 META.yml
+MYMETA.json
 MYMETA.yml
 Makefile
 Makefile.old
