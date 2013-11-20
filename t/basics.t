@@ -51,16 +51,22 @@ use_ok 'MooseX::Trait::Tag';
 my $foo = Foo->new();
 my $bare = Bare->new();
 
-cmp_set [$foo->all_metadata], [qw{bar baz}], 'all_<tag> find all tagged attributes';
-cmp_set [Set::Functional::intersection [$foo->all_metadata], [$foo->all_tag]], [qw{baz}], 'Multiple tags on an attribute are orthogonal to eachother';
-ok $foo->is_metadata('bar'), 'is_<tag> identifies tagged attribute as tagged';
-ok ! $foo->is_metadata('bam'), 'is_<tag> identifies untagged attribute as not tagged';
-ok ! $foo->is_metadata('none'), 'is_<tag> identifies non-existent attribute as not tagged';
-dies_ok { $foo->is_metadata() } 'is_<tag> fails when not given an attribute';
+cmp_set [$foo->all_metadata_attributes], [qw{bar baz}], 'all_<tag>_attributes find all tagged attributes';
+cmp_set [Set::Functional::intersection [$foo->all_metadata_attributes], [$foo->all_tag_attributes]], [qw{baz}], 'Multiple tags on an attribute are orthogonal to eachother';
+ok $foo->is_metadata_attribute('bar'), 'is_<tag>_attribute identifies tagged attribute as tagged';
+ok ! $foo->is_metadata_attribute('bam'), 'is_<tag>_attribute identifies untagged attribute as not tagged';
+ok ! $foo->is_metadata_attribute('none'), 'is_<tag>_attribute identifies non-existent attribute as not tagged';
+dies_ok { $foo->is_metadata_attribute() } 'is_<tag>_attribute fails when not given an attribute';
 is_deeply {$foo->get_metadata}, {bar => 3573573, baz => 94796}, 'get_<tag> returns they key-value pairs of thetagged attributes';
 lives_ok { $foo->set_metadata(bar => 235, baz => 789, bam => 'wont update', none => 'also wont update') } 'set_<tag> handles all input';
 is $foo->bar, 235, 'set_<tag> modifies writable tagged attributes';
 is $foo->baz, 94796, 'set_<tag> does not modify read-only tagged attributes';
 is $foo->bam, 94745, 'set_<tag> does not modify untagged attributes';
-throws_ok { $bare->all_metadata } qr/Can't locate object method/, 'Injecting a tag does not pollute other classes';
-lives_ok { $bare->all_nothing; $bare->is_nothing('nothing'); $bare->get_nothing; $bare->set_nothing } 'Injecting a tag adds all appropriate methods to the importing class, regardless of the attributes';
+throws_ok { $bare->all_metadata_attributes } qr/Can't locate object method/, 'Injecting a tag does not pollute other classes';
+
+lives_ok {
+	$bare->all_nothing_attributes;
+	$bare->is_nothing_attribute('nothing');
+	$bare->get_nothing;
+	$bare->set_nothing
+} 'Injecting a tag adds all appropriate methods to the importing class, regardless of the attributes';

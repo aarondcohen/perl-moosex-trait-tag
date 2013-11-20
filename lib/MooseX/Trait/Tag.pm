@@ -40,11 +40,11 @@ Example usage:
 
 	my $foo = Foo->new;
 
-	my @metadata_fields = sort $foo->all_metadata;
+	my @metadata_fields = sort $foo->all_metadata_attributes;
 	# @metadata_fields => qw{ field1 field2 }
 
-	print "Yes\n" if $foo->is_metadata('field1');
-	print "No\n" if !$foo->is_metadata('field3');
+	print "Yes\n" if $foo->is_metadata_attribute('field1');
+	print "No\n" if !$foo->is_metadata_attribute('field3');
 
 	$foo->set_metadata(
 		field1 => 6,
@@ -90,7 +90,7 @@ sub register_tag {
 
 =cut
 
-=head2 is_<tag>( $attribute_name )
+=head2 is_<tag>_attribute( $attribute_name )
 
 Given an attribute name, determine if it is registered to the tag.
 Requires an attribute name.
@@ -98,22 +98,22 @@ Requires an attribute name.
 =cut
 
 	my $importing_class_meta = $importing_class->meta;
-	$importing_class_meta->add_method("is_$tag", sub {
+	$importing_class_meta->add_method("is_$tag\_attribute", sub {
 		my $attribute = (shift)->meta->find_attribute_by_name(@_);
 		return $attribute && $attribute->does($tag);
-	}) unless $importing_class_meta->has_method("is_$tag");
+	}) unless $importing_class_meta->has_method("is_$tag\_attribute");
 
-=head2 all_<tag>( )
+=head2 all_<tag>_attributes( )
 
 Return the names of all attributes marked with the tag.
 
 =cut
 
-	$importing_class_meta->add_method("all_$tag", sub {
+	$importing_class_meta->add_method("all_$tag\_attributes", sub {
 		map { $_->name }
 		grep { $_->does($tag) }
 		(shift)->meta->get_all_attributes
-	}) unless $importing_class_meta->has_method("all_$tag");
+	}) unless $importing_class_meta->has_method("all_$tag\_attributes");
 
 =head2 get_<tag>( )
 
