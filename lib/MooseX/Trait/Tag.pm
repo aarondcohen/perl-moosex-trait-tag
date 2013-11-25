@@ -15,7 +15,7 @@ Version 0.01
 
 =cut
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 =head1 SYNOPSIS
 
@@ -28,7 +28,7 @@ Example usage:
 
 	package Foo;
 	use Moose;
-	use MooseX:Trait::Tag qw{metadata};
+	use MooseX::Trait::Tag qw{metadata};
 
 	has field1 => (is => 'rw', traits => [qw{metadata}]);
 	has field2 => (is => 'ro', traits => [qw{metadata}]);
@@ -188,7 +188,7 @@ L<https://github.com/aarondcohen/MooseX-Trait-Tag/issues>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/Set-Functional>
+L<http://cpanratings.perl.org/d/MooseX-Trait-Tag>
 
 =item * Official CPAN Page
 
