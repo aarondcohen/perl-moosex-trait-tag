@@ -11,7 +11,7 @@ use namespace::autoclean;
 
 =head1 VERSION
 
-Version 0.01
+Version 1.01
 
 =cut
 
