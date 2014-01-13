@@ -11,11 +11,11 @@ use namespace::autoclean;
 
 =head1 VERSION
 
-Version 1.01
+Version 1.02
 
 =cut
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 =head1 SYNOPSIS
 
@@ -82,7 +82,7 @@ sub register_tag {
 
 	#Moose magic to create a new trait bound to the label
 	my $tag_class = "$class\::$tag";
-	Moose::Meta::Role->initialize($tag_class);
+	Moose::Meta::Role->create($tag_class);
 	Moose::Exporter->setup_import_methods(exporting_package => $tag_class);
 	Moose::Util::meta_attribute_alias($tag, $tag_class);
 
