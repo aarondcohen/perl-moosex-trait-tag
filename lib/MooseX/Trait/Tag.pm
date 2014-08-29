@@ -11,11 +11,11 @@ use namespace::autoclean;
 
 =head1 VERSION
 
-Version 1.02
+Version 1.03
 
 =cut
 
-our $VERSION = '1.02';
+our $VERSION = '1.03';
 
 =head1 SYNOPSIS
 
@@ -125,7 +125,7 @@ appropriate tag.
 	$importing_class_meta->add_method("get_$tag", sub {
 		my $self = shift;
 		return
-			map { my $reader = $_->get_read_method; ($_->name => $self->$reader) }
+			map { my $reader = $_->get_read_method; ($_->name => scalar($self->$reader)) }
 			grep { $_->does($tag) && $_->get_read_method }
 			$self->meta->get_all_attributes
 	}) unless $importing_class_meta->has_method("get_$tag");
@@ -151,21 +151,21 @@ if it is associated with the appropriate tag.
 	}) unless $importing_class_meta->has_method("set_$tag");
 }
 
-=head1 ACKNOWLEDGEMENTS
-
-This module is brought to you by L<Shutterstock|http://www.shutterstock.com/>
-(L<@ShutterTech|https://twitter.com/ShutterTech>).  Additional open source
-projects from Shutterstock can be found at
-L<code.shutterstock.com|http://code.shutterstock.com/>.
-
 =head1 AUTHOR
 
 Aaron Cohen, C<< <aarondcohen at gmail.com> >>
 
+=head1 ACKNOWLEDGEMENTS
+
+This module was made possible by L<Shutterstock|http://www.shutterstock.com/>
+(L<@ShutterTech|https://twitter.com/ShutterTech>).  Additional open source
+projects from Shutterstock can be found at
+L<code.shutterstock.com|http://code.shutterstock.com/>.
+
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-moosex-trait-tag at rt.cpan.org>, or through
-the web interface at L<https://github.com/aarondcohen/MooseX-Trait-Tag/issues>.  I will
+the web interface at L<https://github.com/aarondcohen/perl-moosex-trait-tag/issues>.  I will
 be notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
 =head1 SUPPORT
@@ -180,11 +180,11 @@ You can also look for information at:
 
 =item * Official GitHub Repo
 
-L<https://github.com/aarondcohen/MooseX-Trait-Tag>
+L<https://github.com/aarondcohen/perl-moosex-trait-tag>
 
 =item * GitHub's Issue Tracker (report bugs here)
 
-L<https://github.com/aarondcohen/MooseX-Trait-Tag/issues>
+L<https://github.com/aarondcohen/perl-moosex-trait-tag/issues>
 
 =item * CPAN Ratings
 
