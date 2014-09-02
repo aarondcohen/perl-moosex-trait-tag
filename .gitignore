@@ -15,6 +15,7 @@ _build/
 blib/
 carton/
 cover_db/
+cpanfile.snapshot
 inc/
 local/
 nytprof.out
